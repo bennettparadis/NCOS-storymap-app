@@ -17,40 +17,14 @@ with st.expander("Scatterplot Instructions"):
             **Remove materials from your analysis by clicking on them in the legend. Double click a material to isolate it. Double click the legend again to reset the plot.**
 
             **Draw a square on the plot to zoom in on a particular set of data points. Double click to reset the plot.** 
-
-            **Select a filter to view the densities for all oysters, or only legal (>75mm), sublegal (25mm < x < 75mm), spat (≤25mm), or non-spat (legal + sublegal).**
 """)
 
 #import data
 df = pd.read_csv("data/2019-2023_oyster_densities.csv")
 
-col1, col2 = st.columns([2,8])
-
-with col1:
-        
-    # Radio button for size class filter
-    size_selection = st.radio(
-        "Select a size class to analyze:", 
-        options=["Total", "Legal", "Sub-Legal", "Spat", "Non-spat"],
-        key=40
-    )
-
-    size_select_dict = {
-        'Total': 'total',
-        'Legal': 'legal',
-        'Sub-Legal': 'sublegal',
-        'Spat': 'spat',
-        'Non-spat' : 'non_spat'
-    }
-
-
-
-# Get the appropriate column based on size selection
-size_column = size_select_dict[size_selection]
-
 # Calculate Lowess trendline for the selected data
 lowess = sm.nonparametric.lowess
-trendline = lowess(df[size_column], df['Material_Age'], frac=0.25)
+trendline = lowess(df['Material_Age'], frac=0.25)
 
 
 # Create scatter plot
@@ -123,6 +97,5 @@ fig1.update_layout(
             margin=dict(l=0, r=0, t=0, b=0)
     )
 
-with col2:
-    st.plotly_chart(fig1, use_container_width=True)
+st.plotly_chart(fig1, use_container_width=True)
 
