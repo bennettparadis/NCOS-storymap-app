@@ -17,20 +17,23 @@ with st.expander("Scatterplot Instructions"):
             **Remove materials from your analysis by clicking on them in the legend. Double click a material to isolate it. Double click the legend again to reset the plot.**
 
             **Draw a square on the plot to zoom in on a particular set of data points. Double click to reset the plot.** 
+
+            **Select a filter to view the densities for all oysters, or only legal (>75mm), sublegal (25mm < x < 75mm), spat (≤25mm), or non-spat (legal + sublegal).**
 """)
 
 #import data
 df = pd.read_csv("data/2019-2023_oyster_densities.csv")
 
+
 # Calculate Lowess trendline for the selected data
 lowess = sm.nonparametric.lowess
-trendline = lowess(df['Material_Age'], frac=0.25)
+trendline = lowess(df['total'], df['Material_Age'], frac=0.25)
 
 
 # Create scatter plot
 fig1 = px.scatter(df, 
                 x='Material_Age', 
-                y=size_column, 
+                y='total', 
                 color="Material", 
                 color_discrete_map={
                     'Marl':'#636EFA',
@@ -78,7 +81,7 @@ fig1.update_layout(
         tickfont=dict(color='black', size=16)  # Update tick font size for x-axis
     ),
     yaxis=dict(
-        title=dict(text=f'{size_selection} Oyster Density (per m²)', font=dict(color='black', size=22)),
+        title=dict(text=f'Oyster Density (per m²)', font=dict(color='black', size=22)),
         tickfont=dict(color='black', size=16)  # Update tick font size for y-axis
     ),
     legend=dict(
