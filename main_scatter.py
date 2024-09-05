@@ -100,5 +100,5 @@ fig1.update_layout(
             margin=dict(l=0, r=0, t=0, b=0)
     )
 
-st.plotly_chart(fig1, use_container_width=True)
+st.plotly_chart(fig1, use_container_width=True, use_container_height=True)
 
