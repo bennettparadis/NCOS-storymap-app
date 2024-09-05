@@ -46,7 +46,7 @@ fig1 = px.scatter(df,
                 },
                 hover_data=['OS_Name', 'Year'],
                 size_max=15,  # Set the maximum size of the markers
-                height=400,
+                height=600,
                 width=950)
 
 # Add Lowess trendline to the plot
