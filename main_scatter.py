@@ -22,7 +22,7 @@ with st.expander("Scatterplot Instructions"):
 """)
 
 #import data
-df = pd.read_csv("data/2019-2023_oyster_densities.csv")
+df = pd.read_csv("data/2019-2024_oyster_densities.csv")
 
 
 # Calculate Lowess trendline for the selected data
@@ -71,7 +71,7 @@ fig1.update_traces(
 )
 
 fig1.update_layout(
-    yaxis_range=[-500,4700],
+    yaxis_range=[-100,7000],
     xaxis_range=[0,30],
     paper_bgcolor='#D6F2F4', 
     plot_bgcolor='white',
